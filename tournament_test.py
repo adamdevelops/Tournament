@@ -62,7 +62,7 @@ def testStandingsBeforeMatches():
     [(id1, name1, wins1, matches1), (id2, name2, wins2, matches2)] = standings
     if matches1 != 0 or matches2 != 0 or wins1 != 0 or wins2 != 0:
         raise ValueError(
-            "Newly registered players should have no matches or wins.")
+            "Newly registerted players should have no matches or wins.")
     if set([name1, name2]) != set(["Melpomene Murray", "Randy Schwartz"]):
         raise ValueError("Registered players' names should appear in standings, "
                          "even if they have no matches played.")
@@ -149,7 +149,7 @@ def testPairings():
 
 if __name__ == '__main__':
     testCount()
-    #testStandingsBeforeMatches()
-    #testReportMatches()
+    testStandingsBeforeMatches()
+    testReportMatches()
     #testPairings()
     print "Success!  All tests pass!"

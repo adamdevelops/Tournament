@@ -65,7 +65,9 @@ def registerPlayer(name):
     db = connect()
     db_cursor = db.cursor()
     query = "INSERT INTO players(name)  VALUES ('%s');" % name
+    query2 = "INSERT INTO player_standings(name)  VALUES ('%s');" % name
     db_cursor.execute(query)
+    db_cursor.execute(query2)
     db.commit()
     db.close()
 
@@ -112,8 +114,10 @@ def swissPairings():
 def randomMatch(the_players):
     num_players = len(the_players)
     for i in the range(100):
-        print
-        player1 = random.randint(0, num_players - 1)
+        player1 = random.sample(the_players, 1)
+        player1 = random.sample(the_players, 1)
+        if player1 == player2:
+            player2 = (player1 + 1) % num_players
 
 
 
