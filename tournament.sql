@@ -10,12 +10,12 @@ CREATE TABLE matches(
   );
 
   CREATE TABLE player_standings(
-      id          integer      PRIMARY KEY REFERENCES players(id),
+      id          integer      REFERENCES players(id),
       name        text,
       wins        integer      default 0,
       matches     integer      default 0
     );
-    
+
     '''Join Example'''
     SELECT EMP_ID, NAME, DEPT FROM COMPANY LEFT OUTER JOIN DEPARTMENT
         ON COMPANY.ID = DEPARTMENT.EMP_ID;

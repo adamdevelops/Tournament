@@ -4,6 +4,7 @@
 #
 
 import psycopg2
+import random
 
 
 def connect():
@@ -56,7 +57,19 @@ def registerPlayer(name):
     """
     db = connect()
     db_cursor = db.cursor()
-    query = ("INSERT INTO players(name) VALUES (%s)", (name,)
+    query = "INSERT INTO players(name) VALUES (%s);"
+    data = (name,)
+    db_cursor.execute(query, data)
+    db.commit()
+    db.close()
+
+def insertNewPlayers():
+    db = connect()
+    db_cursor = db.cursor()
+    #query2 = "DELETE FROM player_standings;"
+    #db_cursor.execute(query2)
+    '''Put new registered players into Player Standings table'''
+    query = "INSERT INTO player_standings (id, name) SELECT id, name FROM players;"
     db_cursor.execute(query)
     db.commit()
     db.close()
@@ -76,10 +89,7 @@ def playerStandings():
     """
     db = connect()
     db_cursor = db.cursor()
-    '''Put new registered players into Player Standings table'''
-    query = "INSERT INTO player_standings (id, name) SELECT id, name FROM players"
-    db_cursor.execute(query)
-
+    insertNewPlayers()
     query2 = "SELECT * FROM player_standings;"
     db_cursor.execute(query2)
     standings = db_cursor.fetchall()
@@ -112,3 +122,59 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+
+def randomMatch():
+    db = connect()
+    db_cursor = db.cursor()
+    query = "SELECT * FROM players;"
+    db_cursor.execute(query)
+    players = db_cursor.fetchall()
+
+    #Test to see if all the players are returned.
+    #print "players is returning: {}".format(players)
+    matchup = []
+    num_players = len(players)
+
+    print "num of players:{}".format(num_players)
+
+    player1 = random.sample(players, 1)
+    print player1[0][1]
+    print "P1:" + str(player1)
+    player2 = random.sample(players, 1)
+    print "P2:"+ str(player2)
+
+    while player1 == player2:
+        player2 = random.sample(players, 1)
+        if player2 != player1:
+            print "NEW P2:"+  str(player2)
+
+    matchup.append(player1)
+    matchup.append(player2)
+
+    print matchup
+    random.shuffle(matchup)
+
+    winner_match = random.randint(0,1)
+
+    print "Match winner:" + str(matchup[winner_match][0][0])
+
+
+    '''for i in range(random.randint(0, num_players)):
+        match = random.shuffle(matchup)
+        print match
+        winner = match[0]
+        print "Winner:" + str(winner)'''
+
+
+
+
+    db.close()
+
+    return players
+
+'''if __name__ == '__main__':
+    standings = randomMatch()
+    playerinstands = [id1, id2, id3, id4] = [row[0] for row in standings]
+
+    #print playerinstands[1]
+    print "Success!  All tests pass!"'''

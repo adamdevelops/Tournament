@@ -80,7 +80,9 @@ def testReportMatches():
     registerPlayer("Cathy Burton")
     registerPlayer("Diane Grant")
     standings = playerStandings()
-    [id1, id2, id3, id4] = [row[0] for row in standings]
+    playergroup = [id1, id2, id3, id4] = [row[0] for row in standings]
+    print playergroup
+
     reportMatch(id1, id2)
     reportMatch(id3, id4)
     standings = playerStandings()

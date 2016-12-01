@@ -111,13 +111,7 @@ def swissPairings():
         name2: the second player's name
     """
 
-def randomMatch(the_players):
-    num_players = len(the_players)
-    for i in the range(100):
-        player1 = random.sample(the_players, 1)
-        player1 = random.sample(the_players, 1)
-        if player1 == player2:
-            player2 = (player1 + 1) % num_players
+
 
 
 
