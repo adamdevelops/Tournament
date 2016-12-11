@@ -26,8 +26,8 @@ def deletePlayers():
     db = connect()
     db_cursor = db.cursor()
     query = "DELETE from players;"
-    query2 = "DELETE from player_standings;"
-    db_cursor.execute(query2)
+    #query2 = "DELETE from player_standings;"
+    #db_cursor.execute(query2)
     db_cursor.execute(query)
     db.commit()
     db.close()
@@ -60,19 +60,23 @@ def registerPlayer(name):
     query = "INSERT INTO players(name) VALUES (%s);"
     data = (name,)
     db_cursor.execute(query, data)
+    #query2 = "INSERT INTO standings (pid) SELECT id FROM players;"
+    #db_cursor.execute(query2)
     db.commit()
     db.close()
 
+'''TEST CODE'''
 def insertNewPlayers():
     db = connect()
     db_cursor = db.cursor()
     #query2 = "DELETE FROM player_standings;"
     #db_cursor.execute(query2)
     '''Put new registered players into Player Standings table'''
-    query = "INSERT INTO player_standings (id, name) SELECT id, name FROM players;"
+    query = "INSERT INTO standings (pid) SELECT id FROM players;"
     db_cursor.execute(query)
     db.commit()
     db.close()
+'''TEST CODE'''
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
@@ -89,8 +93,8 @@ def playerStandings():
     """
     db = connect()
     db_cursor = db.cursor()
-    insertNewPlayers()
-    query2 = "SELECT * FROM player_standings;"
+    #insertNewPlayers()
+    query2 = "SELECT * FROM play_stands;"
     db_cursor.execute(query2)
     standings = db_cursor.fetchall()
     db.commit()
@@ -105,6 +109,17 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
+
+    db = connect()
+    db_cursor = db.cursor()
+    print winner
+    print loser
+    query = "INSERT INTO matches(winner, loser) VALUES (%s, %s);"
+    data = (winner, loser,)
+    db_cursor.execute(query, data)
+    db.commit()
+    db.close()
+
 
 
 def swissPairings():
@@ -164,9 +179,6 @@ def randomMatch():
         print match
         winner = match[0]
         print "Winner:" + str(winner)'''
-
-
-
 
     db.close()
 
