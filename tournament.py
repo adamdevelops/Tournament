@@ -3,7 +3,7 @@
 # tournament.py -- implementation of a Swiss-system tournament
 #
 
-import psycopg2
+import psycopg2  #psql python library
 import random
 
 
@@ -33,7 +33,7 @@ def deletePlayers():
     db.close()
 
 def countPlayers():
-    """Returns the number of players currently registered."""
+    """Returns the number of players currently registered from the players table."""
 
     db = connect()
     db_cursor = db.cursor()
@@ -48,7 +48,7 @@ def countPlayers():
     return count
 
 def registerPlayer(name):
-    """Adds a player to the tournament database.
+    """Adds a player to the tournament database using name inputted into this function.
 
     The database assigns a unique serial id number for the player.  (This
     should be handled by your SQL database schema, not in your Python code.)
@@ -57,7 +57,7 @@ def registerPlayer(name):
     """
     db = connect()
     db_cursor = db.cursor()
-    query = "INSERT INTO players(name) VALUES (%s);"
+    query = "INSERT INTO players(name) VALUES (%s);"  #Insert player into players table
     data = (name,)
     db_cursor.execute(query, data)
     #query2 = "INSERT INTO standings (pid) SELECT id FROM players;"
@@ -66,6 +66,9 @@ def registerPlayer(name):
     db.close()
 
 '''TEST CODE'''
+""" This is previous code for the implementation of the standings as a table instead of a view
+    The function was used to insert new players into the standings record.
+"""
 def insertNewPlayers():
     db = connect()
     db_cursor = db.cursor()
@@ -94,7 +97,7 @@ def playerStandings():
     db = connect()
     db_cursor = db.cursor()
     #insertNewPlayers()
-    query2 = "SELECT * FROM play_stands;"
+    query2 = "SELECT * FROM play_stands;"   #Return the record of players in the standings table
     db_cursor.execute(query2)
     standings = db_cursor.fetchall()
     db.commit()
@@ -109,12 +112,15 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
+    print ""
+    print "Entering reportMatch() function."
 
     db = connect()
     db_cursor = db.cursor()
+    #View who is the winner and loser of a match
     print winner
     print loser
-    query = "INSERT INTO matches(winner, loser) VALUES (%s, %s);"
+    query = "INSERT INTO matches(winner, loser) VALUES (%s, %s);"   #Insert the winner and loser into matches table
     data = (winner, loser,)
     db_cursor.execute(query, data)
     db.commit()
@@ -138,10 +144,44 @@ def swissPairings():
         name2: the second player's name
     """
 
-def randomMatch():
+    print ""
+    print "Entering swissPairings() function."
     db = connect()
     db_cursor = db.cursor()
-    query = "SELECT * FROM players;"
+    #Retrieve the standings view records for each player.
+    query = "SELECT * FROM play_stands;"
+    db_cursor.execute(query)
+    players = db_cursor.fetchall()
+    pairings = []   #array used to hold pairing of two grouped players.
+
+    num_players = len(players)
+    print "num of players:{}".format(num_players)
+
+    # Group parings of two players
+    for x in range(0, num_players - 1, 2):
+        paired_players = (players[x][0], players[x][1], players[x + 1][0], players[x + 1][1])
+        pairings.append(paired_players)
+
+    db.close()
+
+    #View the pairings of the players
+    print pairings
+
+    return pairings
+
+
+def randomMatch():
+    """Randomely generates the winner and loser of a paired matchup.
+
+    Assuming that there are an even number of players registered, each player
+    appears exactly once in the pairings.  Each player is paired with another
+    player with an equal or nearly-equal win record, that is, a player adjacent
+    to him or her in the standings.
+    """
+
+    db = connect()
+    db_cursor = db.cursor()
+    query = "SELECT id, name, total_wins FROM play_stands;"
     db_cursor.execute(query)
     players = db_cursor.fetchall()
 
@@ -152,12 +192,13 @@ def randomMatch():
 
     print "num of players:{}".format(num_players)
 
+    #Select two random players from the standings record
     player1 = random.sample(players, 1)
-    print player1[0][1]
+    print "Player 1's name: " + player1[0][1]
     print "P1:" + str(player1)
     player2 = random.sample(players, 1)
     print "P2:"+ str(player2)
-
+    #Create a new player 2 if player 2 is the same player as player 1
     while player1 == player2:
         player2 = random.sample(players, 1)
         if player2 != player1:
@@ -165,12 +206,14 @@ def randomMatch():
 
     matchup.append(player1)
     matchup.append(player2)
-
+    #Print the matchup of the two players and shuffle the matchup array
     print matchup
     random.shuffle(matchup)
-
+    #Create a random number between 0 and 1 to be used as index to determine winning player.
     winner_match = random.randint(0,1)
 
+    print winner_match
+    #Winner of the match determined random generated int between 0 and 1.
     print "Match winner:" + str(matchup[winner_match][0][0])
 
 
@@ -183,10 +226,3 @@ def randomMatch():
     db.close()
 
     return players
-
-'''if __name__ == '__main__':
-    standings = randomMatch()
-    playerinstands = [id1, id2, id3, id4] = [row[0] for row in standings]
-
-    #print playerinstands[1]
-    print "Success!  All tests pass!"'''

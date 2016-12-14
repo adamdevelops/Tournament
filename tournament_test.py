@@ -84,7 +84,7 @@ def testReportMatches():
     print playergroup
 
     reportMatch(id1, id2)
-    reportMatch(id3, id4)
+    #reportMatch(id3, id4)   ---test match to confirm if standings work correctly
     reportMatch(id3, id4)
     standings = playerStandings()
     for (i, n, w, m) in standings:
@@ -154,5 +154,5 @@ if __name__ == '__main__':
     testCount()
     testStandingsBeforeMatches()
     testReportMatches()
-    #testPairings()
+    testPairings()
     print "Success!  All tests pass!"
