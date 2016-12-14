@@ -1,7 +1,7 @@
 # Tournament
 Project 2 for the Udacity Full Stack Nanodegree
 
-<Project Specification
+Project Specification
 
 Develop a database schema to store details of a games matches between players.
 Then write a Python module to rank the players and pair them up in matches in a tournament.
@@ -38,7 +38,7 @@ copy the contents of tournament.sql and paste in to the terminal window
 type \q to quit out of PSQL
 Run the tests within the tournament_test.py file
 
-<u>Final results in the cmd prompt.</u>
+Final results in the cmd prompt:
 
 vagrant@vagrant-ubuntu-trusty-32:/vagrant/tournament$ python tournament_test.py
 
@@ -54,6 +54,7 @@ vagrant@vagrant-ubuntu-trusty-32:/vagrant/tournament$ python tournament_test.py
 Success! All tests pass!
 
 References:
+
 http://www.w3schools.com/sql/
 
 https://docs.python.org/2/library/array.html
