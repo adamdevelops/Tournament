@@ -52,3 +52,18 @@ vagrant@vagrant-ubuntu-trusty-32:/vagrant/tournament$ python tournament_test.py
 8. After one match, players with one win are paired.
 
 Success! All tests pass!
+
+References:
+http://www.w3schools.com/sql/
+
+https://docs.python.org/2/library/array.html
+
+https://docs.python.org/2/library/random.html
+
+https://www.google.com/search?q=random.sample+python&sourceid=ie7&rls=com.microsoft:en-US:IE-Address&ie=&oe=&gws_rd=ssl
+
+https://discussions.udacity.com/t/how-to-pass-the-argument-to-the-sql-statement-in-pyscopg2/193999
+
+http://initd.org/psycopg/docs/usage.html
+
+http://stackoverflow.com/questions/14793057/how-to-include-zero-0-results-in-count-aggregate
