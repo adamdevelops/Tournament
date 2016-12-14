@@ -1,12 +1,12 @@
 # Tournament
 Project 2 for the Udacity Full Stack Nanodegree
 
-Project Specification
+<u>Project Specification</u>
 
 Develop a database schema to store details of a games matches between players.
 Then write a Python module to rank the players and pair them up in matches in a tournament.
 
-Files
+<u>Files:</u>
 
 tournament.py
 
@@ -24,7 +24,7 @@ Prerequisites
 
 The latest vagrant build for the Udacity tournament project. (In project notes)
 
-Instructions
+<u>Instructions:</u>
 
 Start Vagrant
 Open Terminal or cmd and browse to the vagrant folder
@@ -38,7 +38,7 @@ copy the contents of tournament.sql and paste in to the terminal window
 type \q to quit out of PSQL
 Run the tests within the tournament_test.py file
 
-Final results in the cmd prompt.
+<u>Final results in the cmd prompt.</u>
 
 vagrant@vagrant-ubuntu-trusty-32:/vagrant/tournament$ python tournament_test.py
 
