@@ -1,12 +1,12 @@
 # Tournament
 Project 2 for the Udacity Full Stack Nanodegree
 
-<u>Project Specification</u>
+<Project Specification
 
 Develop a database schema to store details of a games matches between players.
 Then write a Python module to rank the players and pair them up in matches in a tournament.
 
-<u>Files:</u>
+<u> Files:/>
 
 tournament.py
 
